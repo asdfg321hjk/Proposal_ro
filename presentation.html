@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenice - Custom CRM + ERP + GPS Tracking System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .presentation-container {
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            width: 2rem;
+            height: 2rem;
+            background: #16a34a;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .company-info h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .website-link {
+            font-size: 0.875rem;
+            color: #16a34a;
+            text-decoration: none;
+        }
+
+        .website-link:hover {
+            text-decoration: underline;
+        }
+
+        .slide-counter {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .slide-container {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-content {
+            padding: 2rem;
+            height: 100%;
+            min-height: 600px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation Controls */
+        .navigation-controls {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            color: #374151;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #f9fafb;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .indicator.active {
+            background: #16a34a;
+        }
+
+        /* Slide Styles */
+        .slide-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .slide-title h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .title-underline {
+            width: 6rem;
+            height: 0.25rem;
+            background: #16a34a;
+            margin: 0 auto 1.5rem;
+        }
+
+        .slide-subtitle {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            height: calc(100% - 120px);
+        }
+
+        .info-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card.green {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+        }
+
+        .info-card.blue {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+        }
+
+        .info-card.yellow {
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+        }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card p {
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .check-icon {
+            color: #16a34a;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .project-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-features {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-features li {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-link {
+            color: #16a34a;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .portfolio-link {
+            text-align: center;
+            padding-top: 1rem;
+        }
+
+        .portfolio-link a {
+            color: #16a34a;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .portfolio-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+        }
+
+        .feature-icon.green { color: #16a34a; }
+        .feature-icon.blue { color: #2563eb; }
+        .feature-icon.red { color: #dc2626; }
+        .feature-icon.purple { color: #7c3aed; }
+        .feature-icon.orange { color: #ea580c; }
+        .feature-icon.gray { color: #6b7280; }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Process Steps */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .step-number.green { background: #dcfce7; color: #16a34a; }
+        .step-number.blue { background: #dbeafe; color: #2563eb; }
+        .step-number.purple { background: #e9d5ff; color: #7c3aed; }
+        .step-number.orange { background: #fed7aa; color: #ea580c; }
+        .step-number.red { background: #fecaca; color: #dc2626; }
+
+        .step-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .member-avatar.green { background: linear-gradient(135deg, #4ade80, #16a34a); }
+        .member-avatar.blue { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+        .member-avatar.purple { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+        .member-avatar.orange { background: linear-gradient(135deg, #fb923c, #ea580c); }
+        .member-avatar.red { background: linear-gradient(135deg, #f87171, #dc2626); }
+        .member-avatar.gray { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+
+        .member-avatar i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .member-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Budget Cards */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .budget-card {
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid;
+        }
+
+        .budget-card.blue {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-color: #93c5fd;
+        }
+
+        .budget-card.green {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: #86efac;
+        }
+
+        .budget-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .budget-icon.blue { color: #2563eb; }
+        .budget-icon.green { color: #16a34a; }
+
+        .budget-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .budget-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .budget-value.blue { color: #2563eb; }
+        .budget-value.green { color: #16a34a; }
+
+        .budget-label {
+            color: #374151;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #16a34a, #2563eb);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: #16a34a;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #f9fafb;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info p {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: #9ca3af;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slide-title h1 {
+                font-size: 2rem;
+            }
+
+            .contact-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .slide-content {
+                padding: 1rem;
+            }
+
+            .navigation-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">G</div>
+                    <div class="company-info">
+                        <h1>Greenice</h1>
+                        <a href="https://www.greenice.net" target="_blank" rel="noopener noreferrer" class="website-link">
+                            greenice.net
+                        </a>
+                    </div>
+                </div>
+                <div class="slide-counter">
+                    <span id="slideCounter">Slide 1 of 8</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="slide-container">
+                <!-- Slide Content -->
+                <div id="slideContent" class="slide-content">
+                    <!-- Slides will be dynamically inserted here -->
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="navigation-controls">
+                    <button id="prevBtn" class="nav-btn" onclick="prevSlide()">
+                        <i class="fas fa-chevron-left"></i>
+                        <span>Previous</span>
+                    </button>
+
+                    <!-- Slide Indicators -->
+                    <div class="slide-indicators" id="slideIndicators">
+                        <!-- Indicators will be dynamically generated -->
+                    </div>
+
+                    <button id="nextBtn" class="nav-btn" onclick="nextSlide()">
+                        <span>Next</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Slide data and management
+        let currentSlide = 0;
+        const totalSlides = 8;
+
+        const slides = [
+            { id: 1, title: "Who We Are — Greenice", type: "intro" },
+            { id: 2, title: "Your Vision, Our Responsibility", type: "understanding" },
+            { id: 3, title: "Core System Components", type: "features" },
+            { id: 4, title: "Agile, Transparent, Reliable", type: "approach" },
+            { id: 5, title: "Meet Your Dedicated Team", type: "team" },
+            { id: 6, title: "3-Month Warranty & Ongoing Support", type: "warranty" },
+            { id: 7, title: "Estimated Scope, Time & Budget", type: "budget" },
+            { id: 8, title: "Let's Move Forward", type: "next-steps" }
+        ];
+
+        // Initialize presentation
+        document.addEventListener("DOMContentLoaded", function() {
+            generateSlideIndicators();
+            renderSlide();
+            updateNavigation();
+        });
+
+        // Generate slide indicators
+        function generateSlideIndicators() {
+            const indicatorsContainer = document.getElementById("slideIndicators");
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement("div");
+                indicator.className = "indicator";
+                indicator.onclick = function() { goToSlide(i); };
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        // Navigation functions
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                renderSlide();
+                updateNavigation();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+                updateNavigation();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            renderSlide();
+            updateNavigation();
+        }
+
+        // Update navigation state
+        function updateNavigation() {
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const slideCounter = document.getElementById("slideCounter");
+            const indicators = document.querySelectorAll(".indicator");
+
+            // Update buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            // Update counter
+            slideCounter.textContent = "Slide " + (currentSlide + 1) + " of " + totalSlides;
+
+            // Update indicators
+            indicators.forEach(function(indicator, index) {
+                if (index === currentSlide) {
+                    indicator.classList.add("active");
+                } else {
+                    indicator.classList.remove("active");
+                }
+            });
+        }
+
+        // Render current slide
+        function renderSlide() {
+            const slideContent = document.getElementById("slideContent");
+            const slide = slides[currentSlide];
+
+            switch (slide.type) {
+                case "intro":
+                    slideContent.innerHTML = renderIntroSlide();
+                    break;
+                case "understanding":
+                    slideContent.innerHTML = renderUnderstandingSlide();
+                    break;
+                case "features":
+                    slideContent.innerHTML = renderFeaturesSlide();
+                    break;
+                case "approach":
+                    slideContent.innerHTML = renderApproachSlide();
+                    break;
+                case "team":
+                    slideContent.innerHTML = renderTeamSlide();
+                    break;
+                case "warranty":
+                    slideContent.innerHTML = renderWarrantySlide();
+                    break;
+                case "budget":
+                    slideContent.innerHTML = renderBudgetSlide();
+                    break;
+                case "next-steps":
+                    slideContent.innerHTML = renderNextStepsSlide();
+                    break;
+                default:
+                    slideContent.innerHTML = renderIntroSlide();
+            }
+        }
+
+        // Slide templates
+        function renderIntroSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Who We Are — Greenice</h1>' +
+                '<div class="title-underline"></div>' +
+                '</div>' +
+                '<div class="two-column">' +
+                '<div>' +
+                '<div class="info-card green">' +
+                '<h3>Our Expertise</h3>' +
+                '<p>Greenice is a full-cycle development company with <strong>10+ years of experience</strong> building custom CRM, ERP, and logistics platforms.</p>' +
+                '</div>' +
+                '<div class="info-card blue">' +
+                '<h3>Our Specialization</h3>' +
+                '<p>We specialize in digitizing operations for logistics and B2B companies, creating scalable software solutions ready for commercialization.</p>' +
+                '</div>' +
+                '<div style="text-align: center;">' +
+                '<a href="https://www.greenice.net" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #16a34a; color: #16a34a; text-decoration: none; border-radius: 0.5rem; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor=\'#f0fdf4\'" onmouseout="this.style.backgroundColor=\'transparent\'">' +
+                '<i class="fas fa-globe"></i> www.greenice.net' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '<div>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 600; color: #111827; margin-bottom: 1rem;">Our Previous Projects</h3>' +
+                '<div class="project-card">' +
+                '<div class="project-header">' +
+                '<i class="fas fa-check-circle check-icon"></i>' +
+                '<div>' +
+                '<h4 class="project-title">Keys4U Field Service Platform</h4>' +
+                '<p class="project-description">Complete web + mobile solution for UK-based locksmith company</p>' +
+                '<ul class="project-features">' +
+                '<li>• Real-time order dispatching based on technician geolocation</li>' +
+                '<li>• Mobile app for field staff with route, photos, and task management</li>' +
+                '<li>• Admin dashboard to track performance and invoice generation</li>' +
+                '</ul>' +
+                '<a href="https://www.keys4ulocksmith.co.uk/" target="_blank" rel="noopener noreferrer" class="project-link">' +
+                'Visit Keys4U Project <i class="fas fa-external-link-alt"></i>' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="project-card">' +
+                '<div class="project-header">' +
+                '<i class="fas fa-check-circle check-icon"></i>' +
+                '<div>' +
+                '<h4 class="project-title">Toolsey.com</h4>' +
+                '<p class="project-description">AI-powered CRM and scheduling tool for construction field</p>' +
+                '<ul class="project-features">' +
+                '<li>• Automates task assignment and communication with field teams</li>' +
+                '<li>• Deep API integrations and mobile-first workflows</li>' +
+                '</ul>' +
+                '<a href="https://toolsey.com" target="_blank" rel="noopener noreferrer" class="project-link">' +
+                'Visit Toolsey.com <i class="fas fa-external-link-alt"></i>' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="project-card">' +
+                '<div class="project-header">' +
+                '<i class="fas fa-check-circle check-icon"></i>' +
+                '<div>' +
+                '<h4 class="project-title">Keranique ERP System</h4>' +
+                '<p class="project-description">Custom ERP for Atlantic Coast Brands (Inc. 500 cosmetics corporation)</p>' +
+                '<ul class="project-features">' +
+                '<li>• Tracks orders from various sources (eCommerce, call centers)</li>' +
+                '<li>• Supports 7 departments: Customer Service, Finance, Marketing, etc.</li>' +
+                '<li>• Streamlined workflows and optimized operations</li>' +
+                '</ul>' +
+                '<a href="https://keranique.com/" target="_blank" rel="noopener noreferrer" class="project-link">' +
+                'Visit Keranique <i class="fas fa-external-link-alt"></i>' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="portfolio-link">' +
+                '<a href="https://greenice.net/case-studies/" target="_blank" rel="noopener noreferrer">' +
+                'More proof? Check out our portfolio <i class="fas fa-arrow-right"></i>' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderUnderstandingSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Your Vision, Our Responsibility</h1>' +
+                '<div class="title-underline"></div>' +
+                '</div>' +
+                '<div class="two-column">' +
+                '<div>' +
+                '<div style="background: linear-gradient(135deg, #f0fdf4, #eff6ff); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">' +
+                '<h3 style="font-size: 1.25rem; font-weight: 600; color: #111827; margin-bottom: 1rem;">Project Understanding</h3>' +
+                '<p style="color: #374151; line-height: 1.6; margin-bottom: 1rem;">You\'re looking to build a comprehensive <strong>CRM + ERP platform</strong> with integrated GPS tracking and a mobile app, in collaboration with your strategic partner.</p>' +
+                '<p style="color: #374151; line-height: 1.6;">We understand the expectations for <strong>high-end UX/UI design</strong> (on par with Oura and Incheq) and the need for robust logistics-specific workflows.</p>' +
+                '</div>' +
+                '<div class="info-card yellow">' +
+                '<h3>Quality Standards</h3>' +
+                '<p>We\'re committed to delivering enterprise-grade solutions with premium UX/UI design that matches industry leaders.</p>' +
+                '</div>' +
+                '</div>' +
+                '<div>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 600; color: #111827; margin-bottom: 1.5rem;">Core Objectives</h3>' +
+                '<div style="display: flex; flex-direction: column; gap: 1rem;">' +
+                '<div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<i class="fas fa-users" style="color: #16a34a; font-size: 1.5rem; margin-top: 0.25rem; flex-shrink: 0;"></i>' +
+                '<div><h4 style="font-weight: 600; color: #111827;">Custom CRM</h4><p style="font-size: 0.875rem; color: #6b7280;">Manage clients, leads, and operations</p></div>' +
+                '</div>' +
+                '<div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<i class="fas fa-database" style="color: #2563eb; font-size: 1.5rem; margin-top: 0.25rem; flex-shrink: 0;"></i>' +
+                '<div><h4 style="font-weight: 600; color: #111827;">ERP Modules</h4><p style="font-size: 0.875rem; color: #6b7280;">Logistics, warehousing, and dispatch</p></div>' +
+                '</div>' +
+                '<div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<i class="fas fa-map-marker-alt" style="color: #dc2626; font-size: 1.5rem; margin-top: 0.25rem; flex-shrink: 0;"></i>' +
+                '<div><h4 style="font-weight: 600; color: #111827;">GPS Tracking</h4><p style="font-size: 0.875rem; color: #6b7280;">Real-time mapping and device integration</p></div>' +
+                '</div>' +
+                '<div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<i class="fas fa-chart-bar" style="color: #7c3aed; font-size: 1.5rem; margin-top: 0.25rem; flex-shrink: 0;"></i>' +
+                '<div><h4 style="font-weight: 600; color: #111827;">Web Dashboard</h4><p style="font-size: 0.875rem; color: #6b7280;">Responsive admin panel and analytics</p></div>' +
+                '</div>' +
+                '<div style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<i class="fas fa-mobile-alt" style="color: #ea580c; font-size: 1.5rem; margin-top: 0.25rem; flex-shrink: 0;"></i>' +
+                '<div><h4 style="font-weight: 600; color: #111827;">Mobile App</h4><p style="font-size: 0.875rem; color: #6b7280;">Native mobile application</p></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderFeaturesSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Core System Components</h1>' +
+                '<div class="title-underline"></div>' +
+                '</div>' +
+                '<div class="feature-grid">' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-users feature-icon green"></i>' +
+                '<h3 class="feature-title">CRM</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Lead management</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Client profiles</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Sales pipelines</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-database feature-icon blue"></i>' +
+                '<h3 class="feature-title">ERP</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Inventory management</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Order processing</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Fleet dispatch</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Documentation</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-map-marker-alt feature-icon red"></i>' +
+                '<h3 class="feature-title">GPS Tracking</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Real-time tracking</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Route history</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Geofencing</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-chart-bar feature-icon purple"></i>' +
+                '<h3 class="feature-title">Admin Panel</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Dashboards</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Analytics</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Access controls</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-mobile-alt feature-icon orange"></i>' +
+                '<h3 class="feature-title">Mobile App</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Driver interface</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Route logs</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Check-ins</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="feature-card">' +
+                '<div class="feature-header">' +
+                '<i class="fas fa-cogs feature-icon gray"></i>' +
+                '<h3 class="feature-title">Integrations</h3>' +
+                '</div>' +
+                '<ul class="feature-list">' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> GPS hardware</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Email & SMS</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Billing systems</li>' +
+                '<li><i class="fas fa-check-circle" style="color: #16a34a;"></i> Role-based access</li>' +
+                '</ul>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderApproachSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Agile, Transparent, Reliable</h1>' +
+                '<div class="title-underline"></div>' +
+                '<p class="slide-subtitle">We follow a proven full-cycle development process</p>' +
+                '</div>' +
+                '<div style="display: flex; align-items: center; justify-content: center; flex: 1;">' +
+                '<div class="process-grid">' +
+                '<div class="process-step">' +
+                '<div class="step-number green">1</div>' +
+                '<h3 class="step-title">Discovery & Requirements</h3>' +
+                '<p class="step-description">Gathering detailed requirements and understanding your business needs</p>' +
+                '</div>' +
+                '<div class="process-step">' +
+                '<div class="step-number blue">2</div>' +
+                '<h3 class="step-title">UX/UI Design</h3>' +
+                '<p class="step-description">Creating intuitive designs for both web and mobile platforms</p>' +
+                '</div>' +
+                '<div class="process-step">' +
+                '<div class="step-number purple">3</div>' +
+                '<h3 class="step-title">Agile Development</h3>' +
+                '<p class="step-description">Development in sprints with regular updates and feedback</p>' +
+                '</div>' +
+                '<div class="process-step">' +
+                '<div class="step-number orange">4</div>' +
+                '<h3 class="step-title">QA & Testing</h3>' +
+                '<p class="step-description">Comprehensive testing to ensure quality and reliability</p>' +
+                '</div>' +
+                '<div class="process-step">' +
+                '<div class="step-number red">5</div>' +
+                '<h3 class="step-title">Delivery & Support</h3>' +
+                '<p class="step-description">Final delivery with warranty and ongoing support</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="info-card green" style="margin-top: 2rem;">' +
+                '<h3 style="text-align: center; margin-bottom: 0.75rem;">Why Choose Our Approach?</h3>' +
+                '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">' +
+                '<div>' +
+                '<i class="fas fa-shield-alt" style="font-size: 2rem; color: #16a34a; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">Transparent</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Regular updates and clear communication</p>' +
+                '</div>' +
+                '<div>' +
+                '<i class="fas fa-clock" style="font-size: 2rem; color: #16a34a; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">On-Time</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Predictable delivery schedules</p>' +
+                '</div>' +
+                '<div>' +
+                '<i class="fas fa-check-circle" style="font-size: 2rem; color: #16a34a; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">Quality</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Enterprise-grade solutions</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderTeamSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Meet Your Dedicated Team</h1>' +
+                '<div class="title-underline"></div>' +
+                '<p class="slide-subtitle">You\'ll work with an experienced, cross-functional team</p>' +
+                '</div>' +
+                '<div style="display: flex; align-items: center; justify-content: center; flex: 1;">' +
+                '<div class="team-grid">' +
+                '<div class="team-member">' +
+                '<div class="member-avatar green"><i class="fas fa-users"></i></div>' +
+                '<h3 class="member-title">Project Manager</h3>' +
+                '<p class="member-description">Coordination and communication</p>' +
+                '</div>' +
+                '<div class="team-member">' +
+                '<div class="member-avatar blue"><i class="fas fa-database"></i></div>' +
+                '<h3 class="member-title">Backend Developer</h3>' +
+                '<p class="member-description">Server-side architecture</p>' +
+                '</div>' +
+                '<div class="team-member">' +
+                '<div class="member-avatar purple"><i class="fas fa-globe"></i></div>' +
+                '<h3 class="member-title">Frontend Developer</h3>' +
+                '<p class="member-description">Web interface development</p>' +
+                '</div>' +
+                '<div class="team-member">' +
+                '<div class="member-avatar orange"><i class="fas fa-mobile-alt"></i></div>' +
+                '<h3 class="member-title">Mobile Developer</h3>' +
+                '<p class="member-description">Native app development</p>' +
+                '</div>' +
+                '<div class="team-member">' +
+                '<div class="member-avatar red"><i class="fas fa-shield-alt"></i></div>' +
+                '<h3 class="member-title">QA Engineer</h3>' +
+                '<p class="member-description">Quality assurance</p>' +
+                '</div>' +
+                '<div class="team-member">' +
+                '<div class="member-avatar gray"><i class="fas fa-cogs"></i></div>' +
+                '<h3 class="member-title">Team Lead</h3>' +
+                '<p class="member-description">Technical leadership</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="info-card blue" style="margin-top: 2rem;">' +
+                '<h3 style="text-align: center; margin-bottom: 0.75rem;">Our Specializations</h3>' +
+                '<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">' +
+                '<div>' +
+                '<i class="fas fa-database" style="font-size: 2rem; color: #2563eb; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">CRM/ERP Architecture</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Enterprise system design</p>' +
+                '</div>' +
+                '<div>' +
+                '<i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #2563eb; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">GPS Integrations</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Real-time tracking systems</p>' +
+                '</div>' +
+                '<div>' +
+                '<i class="fas fa-shield-alt" style="font-size: 2rem; color: #2563eb; margin-bottom: 0.5rem;"></i>' +
+                '<h4 style="font-weight: 500; color: #111827;">Enterprise Security</h4>' +
+                '<p style="font-size: 0.875rem; color: #6b7280;">Data protection & compliance</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderWarrantySlide() {
+            return '<div class="slide-title">' +
+                '<h1>3-Month Warranty & Ongoing Support</h1>' +
+                '<div class="title-underline"></div>' +
+                '</div>' +
+                '<div style="max-width: 1000px; margin: 0 auto;">' +
+                '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">' +
+                '<div style="padding: 2rem; background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #86efac; border-radius: 0.5rem; text-align: center;">' +
+                '<div style="width: 4rem; height: 4rem; background: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">' +
+                '<i class="fas fa-shield-alt" style="font-size: 2rem; color: white;"></i>' +
+                '</div>' +
+                '<h3 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1rem;">3-Month Warranty</h3>' +
+                '<p style="color: #374151; line-height: 1.6;">Complete post-launch warranty covering all functionality, bug fixes, and performance optimizations at no additional cost.</p>' +
+                '</div>' +
+                '<div style="padding: 2rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #93c5fd; border-radius: 0.5rem; text-align: center;">' +
+                '<div style="width: 4rem; height: 4rem; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">' +
+                '<i class="fas fa-clock" style="font-size: 2rem; color: white;"></i>' +
+                '</div>' +
+                '<h3 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1rem;">Ongoing Support</h3>' +
+                '<p style="color: #374151; line-height: 1.6;">Continued technical support, maintenance, and feature enhancements to ensure your system grows with your business.</p>' +
+                '</div>' +
+                '</div>' +
+                '<div style="margin-top: 3rem; text-align: center;">' +
+                '<p style="font-size: 1.125rem; color: #6b7280;">Complete coverage for peace of mind during the critical post-launch period.</p>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderBudgetSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Estimated Scope, Time & Budget</h1>' +
+                '<div class="title-underline"></div>' +
+                '<p class="slide-subtitle">Based on your initial brief, our preliminary estimate is:</p>' +
+                '</div>' +
+                '<div style="max-width: 1000px; margin: 0 auto;">' +
+                '<div class="budget-grid">' +
+                '<div class="budget-card blue">' +
+                '<i class="fas fa-clock budget-icon blue"></i>' +
+                '<h3 class="budget-title">Development Time</h3>' +
+                '<div class="budget-value blue">900-1700</div>' +
+                '<p class="budget-label">Development Hours</p>' +
+                '</div>' +
+                '<div class="budget-card green">' +
+                '<div style="width: 3rem; height: 3rem; background: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">' +
+                '<span style="color: white; font-weight: bold; font-size: 1.125rem;">$</span>' +
+                '</div>' +
+                '<h3 class="budget-title">Hourly Rate</h3>' +
+                '<div class="budget-value green">$32-35</div>' +
+                '<p class="budget-label">USD per hour</p>' +
+                '</div>' +
+                '</div>' +
+                '<div class="info-card yellow" style="margin-bottom: 2rem;">' +
+                '<div style="display: flex; align-items: flex-start; gap: 0.75rem;">' +
+                '<div style="width: 1.5rem; height: 1.5rem; background: #eab308; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.25rem;">' +
+                '<span style="color: white; font-size: 0.875rem; font-weight: bold;">!</span>' +
+                '</div>' +
+                '<div>' +
+                '<h3 style="font-weight: 600; color: #111827; margin-bottom: 0.5rem;">Important Note</h3>' +
+                '<p style="color: #374151;">Final estimate will be provided after discovery call and full requirement clarification. The hourly rate depends on complexity and tech stack requirements.</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div style="background: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">' +
+                '<h3 style="font-size: 1.25rem; font-weight: 600; color: #111827; margin-bottom: 1.5rem; text-align: center;">Estimate Breakdown Factors</h3>' +
+                '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">' +
+                '<div>' +
+                '<h4 style="font-weight: 600; color: #111827; margin-bottom: 0.75rem;">Time Factors</h4>' +
+                '<ul style="list-style: none; padding: 0;">' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• System complexity and integrations</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Custom GPS tracking requirements</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Mobile app features and platforms</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Third-party API integrations</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Testing and quality assurance</li>' +
+                '</ul>' +
+                '</div>' +
+                '<div>' +
+                '<h4 style="font-weight: 600; color: #111827; margin-bottom: 0.75rem;">Rate Factors</h4>' +
+                '<ul style="list-style: none; padding: 0;">' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Technology stack complexity</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Real-time processing requirements</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Security and compliance needs</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Scalability requirements</li>' +
+                '<li style="font-size: 0.875rem; color: #6b7280; margin-bottom: 0.5rem;">• Custom integrations depth</li>' +
+                '</ul>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function renderNextStepsSlide() {
+            return '<div class="slide-title">' +
+                '<h1>Let\'s Move Forward</h1>' +
+                '<div class="title-underline"></div>' +
+                '</div>' +
+                '<div style="max-width: 1000px; margin: 0 auto;">' +
+                '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2rem;">' +
+                '<div style="padding: 2rem; background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #86efac; border-radius: 0.5rem; text-align: center;">' +
+                '<div style="width: 4rem; height: 4rem; background: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">' +
+                '<i class="fas fa-users" style="font-size: 2rem; color: white;"></i>' +
+                '</div>' +
+                '<h3 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1rem;">Discovery Call</h3>' +
+                '<p style="color: #374151; line-height: 1.6; margin-bottom: 1rem;">We propose a short discovery call to clarify business goals and internal workflows.</p>' +
+                '<div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #16a34a;">' +
+                '<i class="fas fa-check-circle"></i>' +
+                '<span style="font-weight: 500;">Clarify business goals</span>' +
+                '</div>' +
+                '</div>' +
+                '<div style="padding: 2rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #93c5fd; border-radius: 0.5rem; text-align: center;">' +
+                '<div style="width: 4rem; height: 4rem; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">' +
+                '<i class="fas fa-chart-bar" style="font-size: 2rem; color: white;"></i>' +
+                '</div>' +
+                '<h3 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1rem;">Detailed Proposal</h3>' +
+                '<p style="color: #374151; line-height: 1.6; margin-bottom: 1rem;">After the call, you\'ll receive a comprehensive proposal with all details.</p>' +
+                '<div style="display: flex; flex-direction: column; gap: 0.5rem;">' +
+                '<div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #2563eb;">' +
+                '<i class="fas fa-check-circle" style="font-size: 1rem;"></i>' +
+                '<span style="font-size: 0.875rem;">Technical scope breakdown</span>' +
+                '</div>' +
+                '<div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #2563eb;">' +
+                '<i class="fas fa-check-circle" style="font-size: 1rem;"></i>' +
+                '<span style="font-size: 0.875rem;">Timeline & team structure</span>' +
+                '</div>' +
+                '<div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: #2563eb;">' +
+                '<i class="fas fa-check-circle" style="font-size: 1rem;"></i>' +
+                '<span style="font-size: 0.875rem;">Price and development time</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="cta-section">' +
+                '<h3 class="cta-title">Ready to Start Your Project?</h3>' +
+                '<p class="cta-description">Let\'s discuss your vision and create a custom solution that drives your business forward.</p>' +
+                '<div style="display: flex; justify-content: center;">' +
+                '<a href="https://www.greenice.net" target="_blank" rel="noopener noreferrer" class="cta-button">' +
+                '<i class="fas fa-globe"></i> Visit greenice.net' +
+                '</a>' +
+                '</div>' +
+                '</div>' +
+                '<div class="contact-info">' +
+                '<p>Contact Information</p>' +
+                '<div class="contact-details">' +
+                '<span>📧 Email: contact@greenice.net</span>' +
+                '<span>🌐 Website: www.greenice.net</span>' +
+                '<span>📱 Let\'s connect!</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        // Keyboard navigation
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "ArrowRight" || event.key === " ") {
+                event.preventDefault();
+                nextSlide();
+            } else if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                prevSlide();
+            } else if (event.key >= "1" && event.key <= "8") {
+                event.preventDefault();
+                goToSlide(parseInt(event.key) - 1);
+            }
+        });
+    </script>
+</body>
+</html>
